@@ -13,8 +13,24 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Inter', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                theme: {
+                    'azul-oscuro': '#292d66',
+                    'azul': '#3154a2',
+                    'morado': '#672577',
+                    'gris': {
+                        50: '#F9FAFB',
+                        100: '#F3F4F6',
+                        200: '#E5E7EB',
+                        300: '#D1D5DB',
+                    }
+                }
+            },
+            boxShadow: {
+                'soft': '0 2px 8px 0 rgba(0, 0, 0, 0.05)',
+            }
         },
     },
 

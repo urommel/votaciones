@@ -21,10 +21,10 @@ export default function Login({ status }: LoginProps) {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[var(--theme-azul-oscuro)] to-[var(--theme-morado)]">
+        <div className="min-h-screen flex items-center justify-center bg-theme-azul/5">
             <Head title="Iniciar Sesión" />
 
-            <div className="w-full max-w-[400px] space-y-6 bg-white/95 backdrop-blur-sm p-8 shadow-xl rounded-lg">
+            <div className="w-full max-w-[400px] space-y-6 bg-white p-8 shadow-xl rounded-lg">
                 <div className="flex justify-center">
                     <img
                         src="img/logo-sedipro.png"
@@ -33,36 +33,36 @@ export default function Login({ status }: LoginProps) {
                     />
                 </div>
 
-                <h1 className="text-2xl font-semibold text-center text-[var(--theme-azul-oscuro)]">
+                <h1 className="text-2xl font-semibold text-center text-theme-azul-oscuro">
                     Iniciar Sesión
                 </h1>
 
                 {status && (
-                    <div className="mb-4 text-sm font-medium text-green-600">
+                    <div className="mb-4 text-sm font-medium text-emerald-600">
                         {status}
                     </div>
                 )}
 
                 <form onSubmit={submit} className="space-y-4">
                     <div className="space-y-2">
-                        <label htmlFor="email" className="block text-sm font-medium text-[var(--theme-azul)]">
-                            Email
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                            Correo
                         </label>
                         <input
                             id="email"
                             type="email"
                             value={data.email}
                             onChange={(e) => setData('email', e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--theme-azul)]"
+                            className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--theme-azul)]"
                             placeholder="tu@email.com"
                         />
                         {errors.email && (
-                            <p className="text-sm text-red-500">{errors.email}</p>
+                            <p className="text-sm text-red-600">{errors.email}</p>
                         )}
                     </div>
 
                     <div className="space-y-2">
-                        <label htmlFor="password" className="block text-sm font-medium text-[var(--theme-azul)]">
+                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                             Contraseña
                         </label>
                         <input
@@ -70,18 +70,18 @@ export default function Login({ status }: LoginProps) {
                             type="password"
                             value={data.password}
                             onChange={(e) => setData('password', e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--theme-azul)]"
+                            className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--theme-azul)]"
                             placeholder="********"
                         />
                         {errors.password && (
-                            <p className="text-sm text-red-500">{errors.password}</p>
+                            <p className="text-sm text-red-600">{errors.password}</p>
                         )}
                     </div>
 
                     <button
                         type="submit"
                         disabled={processing}
-                        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[var(--theme-azul)] hover:bg-[var(--theme-azul-oscuro)] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--theme-azul)] disabled:opacity-50"
+                        className="w-full flex justify-center py-3 px-4 border-0 rounded-md shadow-lg text-base font-semibold text-white bg-theme-morado hover:bg-theme-morado/90 active:scale-[0.98] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-theme-morado disabled:opacity-50"
                     >
                         {processing ? (
                             <>

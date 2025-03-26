@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@theme {
+:root {
     --font-sans: 'Inter', 'Helvetica', 'Arial', sans-serif;
-
     --theme-azul-oscuro: #292d66;
     --theme-azul: #3154a2;
     --theme-morado: #672577;
