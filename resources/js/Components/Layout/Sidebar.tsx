@@ -2,7 +2,8 @@ import { Link } from '@inertiajs/react';
 import { 
   HomeIcon, UsersIcon, BuildingOffice2Icon, BriefcaseIcon,
   AcademicCapIcon, UserCircleIcon, UserGroupIcon,
-  ClipboardDocumentCheckIcon, CalendarIcon, CheckBadgeIcon
+  ClipboardDocumentCheckIcon, CalendarIcon, CheckBadgeIcon,
+  CheckCircleIcon
 } from '@heroicons/react/24/outline';
 
 const routes = [
@@ -47,8 +48,31 @@ const routes = [
     icon: UserCircleIcon, 
     href: '/candidatos',
     color: 'text-theme-morado'
+  },
+  {
+    label: 'Votaciones',
+    icon: ClipboardDocumentCheckIcon, 
+    href: '/votaciones',
+    color: 'text-theme-rosa'
+  },
+  {
+    label: 'Votos',
+    icon: CheckCircleIcon, 
+    href: '/votos',
+    color: 'text-theme-cyan'
+  },
+  {
+    label: 'Eventos',
+    icon: CalendarIcon, 
+    href: '/eventos',
+    color: 'text-theme-verde'
+  },
+  {
+    label: 'Asistencias',
+    icon: CheckBadgeIcon, 
+    href: '/asistencias',
+    color: 'text-theme-amarillo'
   }
-  // ...otras rutas que puedas tener
 ];
 
 export function Sidebar() {
