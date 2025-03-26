@@ -8,6 +8,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\CarreraController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SedipranoController;
+use App\Http\Controllers\CandidatoController;
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -29,6 +31,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('cargos', CargoController::class);
     Route::resource('carreras', CarreraController::class);
+    Route::resource('sedipranos', SedipranoController::class);
+    Route::resource('candidatos', CandidatoController::class);
+    
+    // Ruta para búsqueda de usuarios para el modal de Sediprano
+    Route::get('/api/users/search', [UserController::class, 'search'])->name('api.users.search');
 });
 
 require __DIR__.'/auth.php';

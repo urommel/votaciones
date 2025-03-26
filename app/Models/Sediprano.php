@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
 use App\Models\Cargo;
 use App\Models\Carrera;
@@ -29,26 +30,36 @@ class Sediprano extends Model
         'qr_path',
         'secret_key',
         'token',
-        'qr_hash'
+        'qr_hash',
     ];
 
     protected $casts = [
-        'fecha_nacimiento' => 'date'
+        'fecha_nacimiento' => 'date',
     ];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function candidato()
+    public function carrera(): BelongsTo
     {
-        return $this->hasOne(Candidato::class);
+        return $this->belongsTo(Carrera::class);
     }
 
-    public function votos()
+    public function cargo(): BelongsTo
     {
-        return $this->hasMany(Voto::class);
+        return $this->belongsTo(Cargo::class);
+    }
+
+    public function area(): BelongsTo
+    {
+        return $this->belongsTo(Area::class);
+    }
+
+    public function candidaturas()
+    {
+        return $this->hasMany(Candidato::class);
     }
 
     public function asistencias()
@@ -56,18 +67,8 @@ class Sediprano extends Model
         return $this->hasMany(Asistencia::class);
     }
 
-    public function carrera()
+    public function votos()
     {
-        return $this->belongsTo(Carrera::class);
-    }
-
-    public function cargo()
-    {
-        return $this->belongsTo(Cargo::class);
-    }
-
-    public function area()
-    {
-        return $this->belongsTo(Area::class);
+        return $this->hasMany(Voto::class);
     }
 }

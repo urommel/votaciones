@@ -71,4 +71,16 @@ class UserController extends Controller
         $user->delete();
         return redirect()->back()->with('success', 'Usuario eliminado exitosamente');
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query', '');
+        
+        $users = User::where('name', 'like', "%{$query}%")
+            ->orWhere('email', 'like', "%{$query}%")
+            ->limit(5)
+            ->get(['id', 'name', 'email']);
+        
+        return response()->json($users);
+    }
 }
