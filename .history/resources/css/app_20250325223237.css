@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@theme {
+    /* colors: {
+                azulOscuro: '#292d66',
+                azul: '#3154a2',
+                morado: '#672577',
+            } */
+}

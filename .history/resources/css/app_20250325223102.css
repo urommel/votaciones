@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// tailwind.config.js
+module.exports = {
+    theme: {
+        extend: {
+            colors: {
+                azulOscuro: '#292d66',
+                azul: '#3154a2',
+                morado: '#672577',
+            }
+        }
+    }
+}
