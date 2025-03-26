@@ -187,7 +187,7 @@ export default function Asistencias({ asistencias, filters, eventos, sedipranos 
                 setEditingAsistencia(null);
                 setIsModalOpen(true);
               }}
-              className="gap-2 bg-theme-amarillo hover:bg-theme-amarillo/90"
+              className="gap-2 !bg-theme-amarillo hover:!bg-theme-amarillo/90"
             >
               <PlusIcon className="w-5 h-5" />
               Registrar Asistencia

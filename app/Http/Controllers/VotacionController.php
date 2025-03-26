@@ -7,6 +7,7 @@ use App\Enums\EstadoVotacion;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
+use Carbon\Carbon;
 
 class VotacionController extends Controller
 {
@@ -30,6 +31,7 @@ class VotacionController extends Controller
             'votaciones' => $votaciones,
             'filters' => ['search' => $search],
             'estados' => array_column(EstadoVotacion::cases(), 'value'),
+            'eventos' => \App\Models\Evento::select('id', 'nombre')->orderBy('nombre')->get(),
         ]);
     }
 
@@ -45,11 +47,10 @@ class VotacionController extends Controller
             'hora_fin' => 'required|date_format:H:i|after:hora_inicio',
             'descripcion' => 'nullable|string',
             'estado' => 'required|string|in:' . implode(',', array_column(EstadoVotacion::cases(), 'value')),
+            'evento_requerido_id' => 'nullable|exists:eventos,id'
         ]);
 
         Votacion::create($validated);
-
-        return Redirect::route('votaciones.index');
     }
 
     /**
@@ -72,13 +73,13 @@ class VotacionController extends Controller
             'hora_fin' => 'required|date_format:H:i|after:hora_inicio',
             'descripcion' => 'nullable|string',
             'estado' => 'required|string|in:' . implode(',', array_column(EstadoVotacion::cases(), 'value')),
+            'evento_requerido_id' => 'nullable|exists:eventos,id'
         ]);
 
         $votacion->update($validated);
 
-        return Redirect::route('votaciones.index');
+        return Redirect::route('votaciones.index')->with('success', 'Votación actualizada correctamente');
     }
-
     /**
      * Remove the specified resource from storage.
      */
@@ -86,6 +87,6 @@ class VotacionController extends Controller
     {
         $votacion->delete();
 
-        return Redirect::route('votaciones.index');
+        return Redirect::route('votaciones.index')->with('success', 'Votación eliminada correctamente');
     }
 }

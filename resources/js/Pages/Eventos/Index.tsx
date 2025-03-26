@@ -137,7 +137,7 @@ export default function Eventos({ eventos, filters, estados }: Props) {
                 setEditingEvento(null);
                 setIsModalOpen(true);
               }}
-              className="gap-2 bg-theme-verde hover:bg-theme-verde/90"
+              className="gap-2 !bg-theme-verde hover:!bg-theme-verde/90"
             >
               <PlusIcon className="w-5 h-5" />
               Nuevo Evento

@@ -200,7 +200,8 @@ export function AsistenciaModal({
             <Button 
               type="submit" 
               disabled={processing}
-              className="bg-theme-amarillo hover:bg-theme-amarillo/90"
+              variant="default"
+              className="!bg-theme-amarillo hover:!bg-theme-amarillo/90" // Usamos !important para forzar el estilo
             >
               {mode === 'create' ? 'Registrar' : 'Actualizar'}
             </Button>

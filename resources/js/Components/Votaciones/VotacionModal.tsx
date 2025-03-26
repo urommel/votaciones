@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from '@inertiajs/react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/Components/ui/dialog';
 import { Button } from '@/Components/ui/button';
@@ -16,6 +16,7 @@ interface Votacion {
   hora_fin: string;
   descripcion: string | null;
   estado: string;
+  evento_requerido_id?: number | null;
 }
 
 interface VotacionModalProps {
@@ -24,17 +25,29 @@ interface VotacionModalProps {
   votacion: Votacion | null;
   mode: 'create' | 'edit';
   estados: string[];
+  eventos?: Array<{ id: number; nombre: string }>;
 }
 
-export function VotacionModal({ isOpen, onClose, votacion, mode, estados }: VotacionModalProps) {
-  const { data, setData, post, put, processing, errors, reset } = useForm({
+export function VotacionModal({ 
+  isOpen, 
+  onClose, 
+  votacion, 
+  mode,
+  estados,
+  eventos = []
+}: VotacionModalProps) {
+  const { data, setData, post, put, processing, errors, reset, clearErrors } = useForm({
     name: '',
     fecha: format(new Date(), 'yyyy-MM-dd'),
     hora_inicio: '08:00',
     hora_fin: '18:00',
     descripcion: '',
-    estado: 'pendiente'
+    estado: 'pendiente',
+    evento_requerido_id: ''
   });
+
+  // Para debugging
+  const [formSubmitError, setFormSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     if (isOpen && mode === 'edit' && votacion) {
@@ -44,8 +57,11 @@ export function VotacionModal({ isOpen, onClose, votacion, mode, estados }: Vota
         hora_inicio: votacion.hora_inicio,
         hora_fin: votacion.hora_fin,
         descripcion: votacion.descripcion || '',
-        estado: votacion.estado
+        estado: votacion.estado,
+        evento_requerido_id: votacion.evento_requerido_id ? String(votacion.evento_requerido_id) : ''
       });
+      clearErrors();
+      setFormSubmitError(null);
     } else if (isOpen && mode === 'create') {
       reset('name', 'descripcion');
       setData(prev => ({
@@ -53,13 +69,17 @@ export function VotacionModal({ isOpen, onClose, votacion, mode, estados }: Vota
         fecha: format(new Date(), 'yyyy-MM-dd'),
         hora_inicio: '08:00',
         hora_fin: '18:00',
-        estado: 'pendiente'
+        estado: 'pendiente',
+        evento_requerido_id: ''
       }));
+      clearErrors();
+      setFormSubmitError(null);
     }
   }, [isOpen, votacion, mode]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setFormSubmitError(null);
     
     if (mode === 'create') {
       post(route('votaciones.store'), {
@@ -67,12 +87,24 @@ export function VotacionModal({ isOpen, onClose, votacion, mode, estados }: Vota
           reset();
           onClose();
         },
+        onError: (errors) => {
+          console.error("Errores de validación:", errors);
+          if (errors.error) {
+            setFormSubmitError(errors.error);
+          }
+        }
       });
     } else {
       put(route('votaciones.update', votacion?.id), {
         onSuccess: () => {
           onClose();
         },
+        onError: (errors) => {
+          console.error("Errores de validación:", errors);
+          if (errors.error) {
+            setFormSubmitError(errors.error);
+          }
+        }
       });
     }
   };
@@ -85,6 +117,12 @@ export function VotacionModal({ isOpen, onClose, votacion, mode, estados }: Vota
             {mode === 'create' ? 'Nueva Votación' : 'Editar Votación'}
           </DialogTitle>
         </DialogHeader>
+
+        {formSubmitError && (
+          <div className="p-3 mb-4 text-sm text-red-800 bg-red-100 rounded-md">
+            {formSubmitError}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-6 mt-4">
           <div className="space-y-2">
@@ -161,6 +199,27 @@ export function VotacionModal({ isOpen, onClose, votacion, mode, estados }: Vota
             </div>
           </div>
 
+          {eventos.length > 0 && (
+            <div className="space-y-2">
+              <Label htmlFor="evento_requerido_id">Evento Requerido (Opcional)</Label>
+              <Select
+                id="evento_requerido_id"
+                value={data.evento_requerido_id}
+                onChange={(e) => setData('evento_requerido_id', e.target.value)}
+              >
+                <option value="">Ninguno</option>
+                {eventos.map((evento) => (
+                  <option key={evento.id} value={evento.id}>
+                    {evento.nombre}
+                  </option>
+                ))}
+              </Select>
+              {errors.evento_requerido_id && (
+                <p className="text-sm text-red-500">{errors.evento_requerido_id}</p>
+              )}
+            </div>
+          )}
+
           <div className="space-y-2">
             <Label htmlFor="descripcion">Descripción</Label>
             <Textarea
@@ -182,7 +241,8 @@ export function VotacionModal({ isOpen, onClose, votacion, mode, estados }: Vota
             <Button 
               type="submit" 
               disabled={processing}
-              className="bg-theme-rosa hover:bg-theme-rosa/90"
+              variant="default"
+              className="!bg-theme-rosa hover:!bg-theme-rosa/90"
             >
               {mode === 'create' ? 'Crear' : 'Actualizar'}
             </Button>

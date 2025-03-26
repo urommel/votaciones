@@ -186,7 +186,7 @@ export default function Votos({ votos, filters, votaciones, sedipranos, candidat
             
             <Button 
               onClick={() => setIsModalOpen(true)}
-              className="gap-2 bg-theme-cyan hover:bg-theme-cyan/90"
+              className="gap-2 !bg-theme-cyan hover:!bg-theme-cyan/90"
             >
               <PlusIcon className="w-5 h-5" />
               Registrar Voto

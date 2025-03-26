@@ -44,9 +44,10 @@ interface Props {
     search: string;
   };
   estados: string[];
+  eventos?: Array<{ id: number; nombre: string }>;
 }
 
-export default function Votaciones({ votaciones, filters, estados }: Props) {
+export default function Votaciones({ votaciones, filters, estados, eventos = [] }: Props) {
   const [searchTerm, setSearchTerm] = useState(filters.search);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingVotacion, setEditingVotacion] = useState<Votacion | null>(null);
@@ -93,13 +94,13 @@ export default function Votaciones({ votaciones, filters, estados }: Props) {
   const getEstadoBadge = (estado: string) => {
     switch (estado) {
       case 'activa':
-        return <Badge className="bg-green-100 text-green-800 border-green-200">Activa</Badge>;
+        return <Badge className="text-green-800 bg-green-100 border-green-200">Activa</Badge>;
       case 'pendiente':
-        return <Badge className="bg-yellow-100 text-yellow-800 border-yellow-200">Pendiente</Badge>;
+        return <Badge className="text-yellow-800 bg-yellow-100 border-yellow-200">Pendiente</Badge>;
       case 'finalizada':
-        return <Badge className="bg-gray-100 text-gray-800 border-gray-200">Finalizada</Badge>;
+        return <Badge className="text-gray-800 bg-gray-100 border-gray-200">Finalizada</Badge>;
       default:
-        return <Badge className="bg-gray-100 text-gray-800">{estado}</Badge>;
+        return <Badge className="text-gray-800 bg-gray-100">{estado}</Badge>;
     }
   };
 
@@ -134,7 +135,7 @@ export default function Votaciones({ votaciones, filters, estados }: Props) {
                 setEditingVotacion(null);
                 setIsModalOpen(true);
               }}
-              className="gap-2 bg-theme-rosa hover:bg-theme-rosa/90"
+              className="gap-2 !bg-theme-rosa hover:!bg-theme-rosa/90"
             >
               <PlusIcon className="w-5 h-5" />
               Nueva Votación
@@ -256,6 +257,7 @@ export default function Votaciones({ votaciones, filters, estados }: Props) {
         votacion={editingVotacion}
         mode={editingVotacion ? 'edit' : 'create'}
         estados={estados}
+        eventos={eventos}
       />
 
       <ConfirmDialog

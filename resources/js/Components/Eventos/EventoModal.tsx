@@ -198,7 +198,8 @@ export function EventoModal({ isOpen, onClose, evento, mode, estados }: EventoMo
             <Button 
               type="submit" 
               disabled={processing}
-              className="bg-theme-verde hover:bg-theme-verde/90"
+              variant="default"
+              className="!bg-theme-verde hover:!bg-theme-verde/90" // Usamos !important para forzar el estilo
             >
               {mode === 'create' ? 'Crear' : 'Actualizar'}
             </Button>

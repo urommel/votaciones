@@ -206,7 +206,8 @@ export function VotoModal({
             <Button 
               type="submit" 
               disabled={processing}
-              className="bg-theme-cyan hover:bg-theme-cyan/90"
+              variant="default"
+              className="!bg-theme-cyan hover:!bg-theme-cyan/90" // Usamos !important para forzar el estilo
             >
               Registrar Voto
             </Button>
