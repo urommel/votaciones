@@ -15,11 +15,18 @@ import { registrarVoto } from '@/utils/votacion';
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/Components/ui/dialog";
+
+// Componentes faltantes
+const DialogDescription = ({ children }: { children: React.ReactNode }) => (
+  <div className="text-sm text-gray-500">{children}</div>
+);
+
+const DialogFooter = ({ children }: { children: React.ReactNode }) => (
+  <div className="flex justify-end gap-2 mt-4">{children}</div>
+);
 
 // Tipos de datos
 interface Votante {
@@ -332,20 +339,22 @@ export default function EmitirVoto() {
             )}
           </div>
           
-          <DialogFooter className="flex space-x-2">
-            <Button 
-              variant="outline" 
-              onClick={() => setShowConfirmDialog(false)}
-            >
-              Cancelar
-            </Button>
-            <Button 
-              className="bg-theme-azul hover:bg-theme-azul/90"
-              onClick={handleVoteSubmit}
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Procesando...' : 'Confirmar Voto'}
-            </Button>
+          <DialogFooter>
+            <div className="flex space-x-2">
+              <Button 
+                variant="outline" 
+                onClick={() => setShowConfirmDialog(false)}
+              >
+                Cancelar
+              </Button>
+              <Button 
+                className="bg-theme-azul hover:bg-theme-azul/90"
+                onClick={handleVoteSubmit}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Procesando...' : 'Confirmar Voto'}
+              </Button>
+            </div>
           </DialogFooter>
         </DialogContent>
       </Dialog>

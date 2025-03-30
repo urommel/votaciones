@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { Head, useForm, router } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { PlusIcon, PencilIcon, TrashIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { PlusIcon, PencilIcon, TrashIcon, MagnifyingGlassIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/Components/ui/button';
 import { Input } from '@/Components/ui/input';
 import { motion } from 'framer-motion';

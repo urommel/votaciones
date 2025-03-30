@@ -35,6 +35,8 @@ interface Candidato {
     nombre: string;
     abreviatura: string;
   } | null;
+  votacion_id: number;
+  foto: string; // Campo original
 }
 
 interface Votacion {
@@ -301,7 +303,15 @@ export default function Votos({ votos, filters, votaciones, sedipranos, candidat
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         sedipranos={sedipranos}
-        candidatos={candidatos}
+        // Mapear candidatos para asegurar compatibilidad con el tipo esperado
+        candidatos={candidatos.map(c => ({
+          id: c.id,
+          sediprano: c.sediprano,
+          cargo: c.cargo,
+          area: c.area,
+          votacion_id: c.votacion_id,
+          foto_url: c.foto, // Mapear 'foto' a 'foto_url'
+        }))}
         votaciones={votaciones}
       />
 

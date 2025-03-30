@@ -5,6 +5,14 @@ import { useEffect } from 'react';
 import { Input } from '@/Components/ui/input';
 import { Button } from '@/Components/ui/button';
 
+// Definir la interfaz Area
+interface Area {
+    id: number;
+    nombre: string;
+    abreviatura: string;
+    created_at: string;
+}
+
 interface AreaModalProps {
     isOpen: boolean;
     onClose: () => void;
@@ -63,7 +71,7 @@ export function AreaModal({ isOpen, onClose, area, mode }: AreaModalProps) {
                 </Transition.Child>
 
                 <div className="fixed inset-0 overflow-y-auto">
-                    <div className="flex min-h-full items-center justify-center p-4">
+                    <div className="flex items-center justify-center min-h-full p-4">
                         <Transition.Child
                             as={Fragment}
                             enter="ease-out duration-300"
@@ -73,7 +81,7 @@ export function AreaModal({ isOpen, onClose, area, mode }: AreaModalProps) {
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-xl bg-white p-6 shadow-xl transition-all">
+                            <Dialog.Panel className="w-full max-w-md p-6 overflow-hidden transition-all transform bg-white shadow-xl rounded-xl">
                                 <Dialog.Title className="text-xl font-semibold text-gray-900">
                                     {mode === 'create' ? 'Nueva Área' : 'Editar Área'}
                                 </Dialog.Title>
@@ -111,7 +119,7 @@ export function AreaModal({ isOpen, onClose, area, mode }: AreaModalProps) {
                                         <Button
                                             type="button"
                                             onClick={onClose}
-                                            className="bg-gray-100 text-gray-700 hover:bg-gray-200"
+                                            className="text-gray-700 bg-gray-100 hover:bg-gray-200"
                                         >
                                             Cancelar
                                         </Button>

@@ -24,6 +24,8 @@ interface PaginatedData<T> {
     last_page: number;
     per_page: number;
     total: number;
+    from: number;
+    to: number;
     links: Array<{
         url: string | null;
         label: string;
@@ -64,9 +66,12 @@ export default function Areas({ areas, filters }: Props) {
         debouncedSearch(e.target.value);
     };
 
-    const handlePageChange = (page: number) => {
+    const handlePageChange = (page: string) => {
+        // Convertir a número si es un número de página, o usar directamente si es "Next" o "Previous"
+        const pageNum = parseInt(page, 10) || page;
+        
         router.get(
-            route('areas.index', { page }),
+            route('areas.index', { page: pageNum }),
             { 
                 search: searchTerm,
             },
@@ -231,7 +236,7 @@ export default function Areas({ areas, filters }: Props) {
                     setIsModalOpen(false);
                     setEditingArea(null);
                 }}
-                area={editingArea}
+                area={editingArea || undefined}
                 mode={editingArea ? 'edit' : 'create'}
             />
 

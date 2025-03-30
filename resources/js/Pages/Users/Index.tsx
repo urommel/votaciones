@@ -228,7 +228,7 @@ export default function Users({ users, filters }: Props) {
                     setIsModalOpen(false);
                     setEditingUser(null);
                 }}
-                user={editingUser}
+                user={editingUser || undefined}
                 mode={editingUser ? 'edit' : 'create'}
             />
 

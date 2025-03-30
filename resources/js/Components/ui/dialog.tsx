@@ -64,3 +64,11 @@ export function DialogTitle({ className, children }: DialogTitleProps) {
     </h2>
   );
 }
+
+export const DialogDescription = ({ children, className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={`text-sm text-gray-500 ${className || ''}`} {...props}>{children}</div>
+);
+
+export const DialogFooter = ({ children, className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={`flex justify-end gap-2 mt-4 ${className || ''}`} {...props}>{children}</div>
+);

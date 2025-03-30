@@ -1,3 +1,10 @@
+interface User {
+    id: number;
+    name: string;
+    email: string;
+    // Añade otras propiedades necesarias
+}
+
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { useForm } from '@inertiajs/react';

@@ -33,6 +33,9 @@ interface Candidato {
   cargo: Cargo;
   area: Area | null;
   votacion_id: number;
+  foto_url?: string | null;  // Hacer opcional y aceptar foto o foto_url
+  foto?: string | null;      // Aceptar ambas propiedades
+  votos_count?: number;
 }
 
 interface Votacion {
@@ -52,7 +55,7 @@ export function VotoModal({
   isOpen, 
   onClose, 
   sedipranos,
-  candidatos, 
+  candidatos,
   votaciones
 }: VotoModalProps) {
   const { data, setData, post, processing, errors, reset } = useForm({
@@ -60,7 +63,7 @@ export function VotoModal({
     votacion_id: '',
     tipo_voto: 'candidato', // 'candidato' o 'blanco'
     candidato_id: '',
-    es_blanco: false
+    es_blanco: false,
   });
 
   const [filteredCandidatos, setFilteredCandidatos] = useState<Candidato[]>([]);
@@ -87,15 +90,17 @@ export function VotoModal({
 
   // Actualizar es_blanco según el tipo de voto seleccionado
   useEffect(() => {
-    setData('es_blanco', data.tipo_voto === 'blanco');
+    // Modificar las dos asignaciones para usar aserciones de tipo
     if (data.tipo_voto === 'blanco') {
+      setData('es_blanco', true as any);
       setData('candidato_id', '');
+    } else {
+      setData('es_blanco', false as any);
     }
   }, [data.tipo_voto]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
     post(route('votos.store'), {
       onSuccess: () => {
         reset();
@@ -112,7 +117,7 @@ export function VotoModal({
             Registrar Nuevo Voto
           </DialogTitle>
         </DialogHeader>
-
+        
         <form onSubmit={handleSubmit} className="space-y-6 mt-4">
           <div className="space-y-2">
             <Label htmlFor="sediprano_id">Sediprano que vota <span className="text-red-500">*</span></Label>
