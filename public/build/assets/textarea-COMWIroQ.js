@@ -1,0 +1,1 @@
+import{R as o,j as s}from"./app-DMpQA86v.js";const t=o.forwardRef(({className:e="",...r},a)=>s.jsx("textarea",{ref:a,className:`w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${e}`,...r}));t.displayName="Textarea";export{t as T};
